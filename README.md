@@ -1,24 +1,3 @@
----
-title: "Introduction to simplelinear_regression()"
-description: >
-  A comprehensive guide to the simplelinear_regression() function.
-output: html_vignette
-vignette: >
-  %\VignetteIndexEntry{introduction}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
-```{r setup}
-knitr::opts_chunk$set(echo = TRUE)
-```
 # Introduction to simplelinear_regression()
 
 This vignette provides an overview of the `simplelinear_regression()` function, which is a part of the `mypackage` package. The function is designed to perform simple linear regression with a single predictor and response variable. It is useful for basic statistical analysis and provides key insights into model fit.
