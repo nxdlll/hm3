@@ -1,0 +1,52 @@
+---
+title: "Comparison with lm()"
+description: >
+  A comparison of the efficiency and correctness of simplelinear_regression() and lm().
+output: html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r setup}
+library(devtools)
+install_github("nxdlll/hw3")
+
+library(hw3)
+```
+Introduction
+The purpose of this vignette is to compare the custom simplelinear_regression() function with R's built-in lm() function, focusing on both correctness (via all.equal()) and efficiency (via bench::mark()).
+
+Example Simple Linear Regression
+```{r}
+data(mtcars)
+
+fit_lm <- lm(mpg ~ wt, data = mtcars)
+fit_simple <- simplelinear_regression(mtcars$wt, mtcars$mpg)
+
+
+all.equal(fit_lm$coefficients[1], fit_simple$intercept) 
+all.equal(fit_lm$coefficients[2], fit_simple$slope)    
+
+all.equal(residuals(fit_lm), fit_simple$residuals)
+
+all.equal(fitted(fit_lm), fit_simple$intercept + fit_simple$slope * mtcars$wt)
+```
+
+Efficiency
+Next, we compare the computational efficiency of simplelinear_regression() and lm() using the bench package.
+
+```{r}
+library(bench)
+
+bench_simple <- bench::mark(
+  lm_fit = lm(mpg ~ wt, data = mtcars),
+  simple_fit = simplelinear_regression(mtcars$wt, mtcars$mpg)
+)
+
+bench_simple
+```
+
